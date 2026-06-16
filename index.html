@@ -1,0 +1,458 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 卦象日历</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:serif;background:#1a1410;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px;
+  background-image:radial-gradient(ellipse at 20% 50%,rgba(180,120,80,0.15)0%,transparent 60%),radial-gradient(ellipse at 80% 50%,rgba(180,120,80,0.12)0%,transparent 60%)}
+.wrap{position:relative;max-width:1200px;width:100%;background:#f7efe6;border-radius:48px 48px 32px 32px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.7),inset 0 0 80px rgba(180,140,100,0.15),0 0 0 1px #dac9b4,0 0 0 6px #b8a084,0 0 0 8px #8a7a66;padding:32px 36px 40px}
+.hd{display:flex;flex-direction:column;align-items:center;justify-content:center;border-bottom:3px double #b8a084;padding-bottom:16px;margin-bottom:28px;gap:8px}
+.mt{display:flex;flex-direction:column;align-items:center;font-size:2.6rem;font-weight:900;color:#3d2a1a;letter-spacing:8px;line-height:1.3}
+.mt .yr{font-weight:400;font-size:1.1rem;color:#8a6e4e;letter-spacing:2px;margin-top:4px}
+.seal{display:inline-block;background:#b53b2c;color:#f7efe6;font-size:.85rem;font-weight:700;padding:4px 12px;border-radius:30px 4px 30px 4px;letter-spacing:2px;box-shadow:inset 0 -2px 0 #7a2a1e,0 2px 8px rgba(180,60,40,0.3);border:1px solid #d46a5a;transform:rotate(-2deg)}
+.lb{background:rgba(232,221,208,0.78);border-radius:60px;padding:10px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:28px;border:1px solid #dac9b4}
+.lb .ll{display:flex;align-items:center;gap:8px;color:#5a4030;font-weight:600;font-size:.95rem}
+.lb .ll .dot{display:inline-block;width:10px;height:10px;background:#b53b2c;border-radius:50%;animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);box-shadow:0 0 0 0 rgba(180,60,40,0.3)}50%{opacity:0.5;transform:scale(0.85);box-shadow:0 0 14px 4px rgba(180,60,40,0.12)}}
+.li{display:flex;align-items:center;gap:20px;flex-wrap:wrap;font-size:.95rem}
+.li .it{display:flex;align-items:baseline;gap:4px;color:#3d2a1a}
+.li .it .tag{opacity:.6}
+.li .it .vl{font-weight:700;color:#7a3a2a}
+.li .it .vl.gn{font-size:1.2rem;color:#b53b2c;background:rgba(180,60,40,0.08);padding:0 12px;border-radius:20px;border:1px solid rgba(180,60,40,0.15)}
+.dp{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:24px;padding:12px 18px;background:rgba(210,180,140,0.15);border-radius:40px;border:1px solid #dac9b4}
+.dp label{font-weight:600;color:#5a4030;letter-spacing:2px}
+.dp input[type=date]{font-family:serif;font-size:1rem;padding:8px 16px;border:1px solid #c9b79b;border-radius:30px;background:#faf6f0;color:#3d2a1a;outline:none;min-width:180px}
+.dp input[type=date]:focus{border-color:#b53b2c;box-shadow:0 0 0 3px rgba(180,60,40,0.15)}
+.dp .bg{display:flex;gap:6px}
+.dp .bn{font-family:serif;background:#e8ddd0;border:1px solid #c9b79b;padding:6px 18px;border-radius:30px;font-size:.9rem;font-weight:600;color:#3d2a1a;cursor:pointer;transition:all .2s}
+.dp .bn:hover{background:#dac9b4}
+.dp .bn.p{background:#b53b2c;border-color:#8a2a1e;color:#f7efe6}
+.dp .bn.p:hover{background:#8a2a1e}
+.dp .tl{font-size:.9rem;color:#8a6e4e;margin-left:auto;background:#e8ddd0;padding:4px 16px;border-radius:30px;border:1px solid #dac9b4}
+.gd{display:grid;grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));gap:28px;margin-bottom:20px}
+
+.gc{background:rgba(250,246,240,0.78);border-radius:28px;padding:24px 28px;border:1px solid #dac9b4;box-shadow:0 6px 20px rgba(80,50,30,0.08);position:relative;overflow:hidden;transition:transform 0.3s ease,box-shadow 0.3s ease}
+.gc:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(80,50,30,0.12)}
+.gc::after{content:'';position:absolute;top:-40%;right:-20%;width:200px;height:200px;background:radial-gradient(circle,rgba(180,140,100,0.04)0%,transparent 70%);pointer-events:none;border-radius:50%}
+.gc .cl{font-size:.9rem;letter-spacing:4px;color:#b8a084;margin-bottom:6px;font-weight:600;}
+.gc .ct{font-size:1.6rem;font-weight:700;color:#3d2a1a;margin-bottom:6px; display:flex; flex-wrap:wrap; gap:10px;}
+.gc .ct .gb{font-size:2.8rem;color:#b53b2c;font-weight:900;letter-spacing:4px;background:rgba(180,60,40,0.06);padding:0 16px;border-radius:16px;border-left:4px solid #b53b2c;display:inline-block; margin:0;}
+.gc .cs{color:#8a6e4e;font-size:.9rem;margin-top:2px}
+.gc .cs .di{opacity:.7}
+.cg{margin-top:8px;background:rgba(250,246,240,0.78);border-radius:28px;padding:20px;border:1px solid #dac9b4}
+.gh{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px}
+.gh .ml{font-size:1.4rem;font-weight:700;color:#3d2a1a;letter-spacing:4px}
+.gh .ml small{font-weight:400;font-size:.9rem;color:#8a6e4e}
+.gh .nb{font-family:serif;background:#e8ddd0;border:1px solid #c9b79b;padding:4px 16px;border-radius:30px;font-size:1rem;color:#5a4030;cursor:pointer;transition:.2s}
+.gh .nb:hover{background:#dac9b4}
+.wr{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:6px;text-align:center;font-weight:600;color:#8a6e4e;font-size:.8rem}
+.wr span:first-child,.wr span:last-child{color:#b53b2c}
+.dg{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.dc{background:rgba(245,235,220,0.5);border-radius:12px;padding:6px;text-align:center;cursor:pointer;border:1px solid transparent;min-height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:all 0.25s ease}
+.dc:hover{background:#e8ddd0;border-color:#c9b79b}
+.dc.sl{background:#dac9b4;border-color:#b53b2c}
+.dc.td{border-color:#b53b2c;background:rgba(180,60,40,0.06);animation:breathe 3s ease-in-out infinite}
+.dc.om{opacity:.3}
+.dc .dn{font-weight:700;font-size:1rem;color:#3d2a1a}
+.tb{font-size:.5rem;background:#b53b2c;color:#f7efe6;padding:0 6px;border-radius:8px;font-weight:700;margin-top:2px;display:inline-block;line-height:1.5}
+
+/* 新增爻位时间表样式 */
+.yt-container { display:grid; grid-template-columns:repeat(auto-fill, minmax(110px, 1fr)); gap:8px; margin-top:12px; max-height:160px; overflow-y:auto; padding-right:8px; scroll-behavior:smooth; }
+.yt-container::-webkit-scrollbar { width:4px; }
+.yt-container::-webkit-scrollbar-thumb { background:#dac9b4; border-radius:4px; }
+.yt-item { background:rgba(210,180,140,0.15); padding:8px 10px; border-radius:12px; border:1px solid #dac9b4; font-size:.85rem; display:flex; flex-direction:column; gap:4px; transition:all 0.3s; }
+.yt-time { color:#b53b2c; font-weight:700; }
+.yt-name { color:#3d2a1a; font-weight:600; }
+.yt-active { background:#b53b2c; border-color:#8a2a1e; transform:scale(1.02); box-shadow:0 4px 12px rgba(180,60,40,0.2); animation:glowActive 2s ease-in-out infinite; }
+.yt-active .yt-time, .yt-active .yt-name { color:#f7efe6; }
+
+.bagua-bg{position:absolute;inset:0;z-index:0;pointer-events:none;display:flex;align-items:center;justify-content:center;color:#3d2a1a;opacity:0.22}
+/* 平板及以下 */
+@media(max-width:860px) {
+  .wrap { padding:18px 14px; border-radius:32px; }
+  .mt { font-size:2rem; letter-spacing:4px; }
+  .yt-container { max-height:300px; }
+  .bagua-bg svg { width:90%; height:90%; }
+}
+
+/* 手机 */
+@media(max-width:540px) {
+  body { overflow-x:hidden; padding:10px; }
+  .wrap { overflow:hidden;padding:12px 10px; border-radius:20px; }
+  .mt { font-size:1.5rem; letter-spacing:2px; }
+  .mt .yr { font-size:.85rem; margin-top:2px; }
+  .seal { font-size:.72rem; padding:3px 10px; }
+  .hd { gap:4px; padding-bottom:10px; margin-bottom:16px; }
+  
+  .lb { padding:8px 12px; flex-direction:column; gap:4px; }
+  .lb .ll { font-size:.85rem; }
+  .lb .li { gap:8px; font-size:.8rem; flex-wrap:wrap; justify-content:center; }
+  .li .it .vl.gn { font-size:1rem; padding:0 8px; }
+  
+  .dp { flex-direction:column; align-items:stretch; gap:8px; padding:10px 12px; }
+  .dp label { font-size:.85rem; }
+  .dp input[type=date] { min-width:unset; width:100%; font-size:.9rem; padding:6px 12px; }
+  .dp .bg { justify-content:center; }
+  .dp .bg .bn { font-size:.8rem; padding:5px 12px; min-height:36px; }
+  .dp .bn.p { font-size:.8rem; padding:5px 16px; min-height:36px; }
+  .dp .tl { font-size:.8rem; margin-left:0; text-align:center; }
+  
+  .gd { grid-template-columns:1fr; gap:14px; }
+  .gc { padding:18px 18px; }
+  .gc .ct { font-size:1.15rem; }
+  .gc .ct .gb { font-size:1.3rem; padding:0 10px; }
+  .gc .cs { font-size:.8rem; }
+  
+  .cg { padding:12px; }
+  .gh { margin-bottom:10px; }
+  .gh .ml { font-size:1.1rem; letter-spacing:2px; }
+  .gh .nb { font-size:.85rem; padding:3px 12px; min-height:36px; }
+  
+  .wr { font-size:.7rem; }
+  .dc { padding:2px; min-height:40px; border-radius:8px; }
+  .dc .dn { font-size:.8rem; }
+  .tb { font-size:.4rem; padding:0 4px; line-height:1.4; }
+  
+  .yt-container { grid-template-columns:repeat(2,1fr); gap:5px; }
+  .yt-item { padding:8px 10px; font-size:.8rem; border-radius:8px; }
+  
+  .bagua-bg svg { width:98%; height:98%; max-width:320px; }
+}
+/* === Animations === */
+@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeInDown{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes stampIn{0%{transform:scale(0) rotate(-10deg);opacity:0}60%{transform:scale(1.18) rotate(-1deg);opacity:1}80%{transform:scale(0.92) rotate(-3deg)}100%{transform:scale(1) rotate(-2deg);opacity:1}}
+@keyframes cardSlideLeft{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:translateX(0)}}
+@keyframes cardSlideRight{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+@keyframes glowActive{0%,100%{box-shadow:0 4px 12px rgba(180,60,40,0.2)}50%{box-shadow:0 4px 24px rgba(180,60,40,0.45)}}
+@keyframes breathe{0%,100%{box-shadow:0 0 0 0 rgba(180,60,40,0.15)}50%{box-shadow:0 0 0 8px rgba(180,60,40,0.05)}}
+@keyframes yaoSlideIn{from{opacity:0;transform:translateY(12px) scale(0.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+.wrap{animation:fadeInUp 0.8s ease-out both}
+.seal{animation:stampIn 0.6s cubic-bezier(0.34,1.56,0.64,1) 0.3s both}
+.lb{animation:fadeInDown 0.5s ease-out 0.15s both}
+.dp{animation:fadeInUp 0.5s ease-out 0.25s both}
+.gd .gc:first-child{animation:cardSlideLeft 0.6s ease-out 0.35s both}
+.gd .gc:last-child{animation:cardSlideRight 0.6s ease-out 0.45s both}
+.cg{animation:fadeInUp 0.6s ease-out 0.55s both}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="bagua-bg">
+    <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" style="width:85%;height:85%;max-width:440px;">
+      <circle cx="200" cy="200" r="184" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.8"/>
+      <circle cx="200" cy="200" r="118" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.8"/>
+      <circle cx="200" cy="200" r="60" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+      <!-- 阴阳鱼（半圆弧S形分割） -->
+      <g transform="translate(200,200)">
+        <path d="M0,-55 A55,55 0 0,0 0,55 A27.5,27.5 0 0,0 0,0 A27.5,27.5 0 0,1 0,-55 Z" fill="currentColor"/>
+        <path d="M0,-55 A55,55 0 0,1 0,55 A27.5,27.5 0 0,0 0,0 A27.5,27.5 0 0,1 0,-55 Z" fill="#f7efe6"/>
+        <circle cx="18" cy="-18" r="5.5" fill="currentColor"/>
+        <circle cx="-18" cy="18" r="5.5" fill="#f7efe6"/>
+      </g>
+      <g transform="translate(200,200) rotate(0) translate(0,-151)">
+        <rect x="-12" y="-11.5" width="24" height="5" fill="currentColor"/>
+        <rect x="-12" y="-2.5" width="24" height="5" fill="currentColor"/>
+        <rect x="-12" y="6.5" width="24" height="5" fill="currentColor"/>
+      </g>
+      <g transform="translate(200,200) rotate(45) translate(0,-151)">
+        <rect x="-12" y="-11.5" width="24" height="5" fill="currentColor"/>
+        <rect x="-12" y="-2.5" width="24" height="5" fill="currentColor"/>
+        <rect x="-12" y="6.5" width="9" height="5" fill="currentColor"/>
+        <rect x="3" y="6.5" width="9" height="5" fill="currentColor"/>
+      </g>
+      <g transform="translate(200,200) rotate(90) translate(0,-151)">
+        <rect x="-12" y="-11.5" width="24" height="5" fill="currentColor"/>
+        <rect x="-12" y="-2.5" width="9" height="5" fill="currentColor"/>
+        <rect x="3" y="-2.5" width="9" height="5" fill="currentColor"/>
+        <rect x="-12" y="6.5" width="24" height="5" fill="currentColor"/>
+      </g>
+      <g transform="translate(200,200) rotate(135) translate(0,-151)">
+        <rect x="-12" y="-11.5" width="24" height="5" fill="currentColor"/>
+        <rect x="-12" y="-2.5" width="9" height="5" fill="currentColor"/>
+        <rect x="3" y="-2.5" width="9" height="5" fill="currentColor"/>
+        <rect x="-12" y="6.5" width="9" height="5" fill="currentColor"/>
+        <rect x="3" y="6.5" width="9" height="5" fill="currentColor"/>
+      </g>
+      <g transform="translate(200,200) rotate(180) translate(0,-151)">
+        <rect x="-12" y="-11.5" width="9" height="5" fill="currentColor"/>
+        <rect x="3" y="-11.5" width="9" height="5" fill="currentColor"/>
+        <rect x="-12" y="-2.5" width="9" height="5" fill="currentColor"/>
+        <rect x="3" y="-2.5" width="9" height="5" fill="currentColor"/>
+        <rect x="-12" y="6.5" width="9" height="5" fill="currentColor"/>
+        <rect x="3" y="6.5" width="9" height="5" fill="currentColor"/>
+      </g>
+      <g transform="translate(200,200) rotate(225) translate(0,-151)">
+        <rect x="-12" y="-11.5" width="9" height="5" fill="currentColor"/>
+        <rect x="3" y="-11.5" width="9" height="5" fill="currentColor"/>
+        <rect x="-12" y="-2.5" width="9" height="5" fill="currentColor"/>
+        <rect x="3" y="-2.5" width="9" height="5" fill="currentColor"/>
+        <rect x="-12" y="6.5" width="24" height="5" fill="currentColor"/>
+      </g>
+      <g transform="translate(200,200) rotate(270) translate(0,-151)">
+        <rect x="-12" y="-11.5" width="9" height="5" fill="currentColor"/>
+        <rect x="3" y="-11.5" width="9" height="5" fill="currentColor"/>
+        <rect x="-12" y="-2.5" width="24" height="5" fill="currentColor"/>
+        <rect x="-12" y="6.5" width="9" height="5" fill="currentColor"/>
+        <rect x="3" y="6.5" width="9" height="5" fill="currentColor"/>
+      </g>
+      <g transform="translate(200,200) rotate(315) translate(0,-151)">
+        <rect x="-12" y="-11.5" width="24" height="5" fill="currentColor"/>
+        <rect x="-12" y="-2.5" width="9" height="5" fill="currentColor"/>
+        <rect x="3" y="-2.5" width="9" height="5" fill="currentColor"/>
+        <rect x="-12" y="6.5" width="9" height="5" fill="currentColor"/>
+        <rect x="3" y="6.5" width="9" height="5" fill="currentColor"/>
+      </g>
+    </svg>
+  </div>
+  <div class="hd">
+    <div class="mt">卦象日历<span class="yr">2026</span></div>
+    <span class="seal">损卦年</span>
+</div>
+  <div class="lb">
+    <div class="ll"><span class="dot"></span>实时卦象</div>
+    <div class="li">
+      <div class="it"><span class="tag">时间</span><span class="vl" id="lt">--:--:--</span></div>
+      <div class="it"><span class="tag">卦象</span><span class="vl gn" id="lg">—</span></div>
+      <div class="it"><span class="tag">爻位</span><span class="vl" id="ly">—</span></div>
+    </div>
+  </div>
+  <div class="dp">
+    <label>查询日期</label><input type="date" id="dp">
+    <div class="bg"><button class="bn" id="bpd">前一天</button><button class="bn" id="bnd">后一天</button></div>
+    <button class="bn p" id="btnToday">今天</button>
+    <span class="tl" id="tll">—</span>
+  </div>
+  
+  <div class="gd">
+    <div class="gc">
+      <div class="cl" id="cardLabel">今日卦象</div>
+      <!-- 卦象容器，将会容纳当天的所有独立卦名 -->
+      <div class="ct" id="sgNameCt"></div>
+      <div class="cs"><span class="di" id="sgDate">—</span></div>
+    </div>
+    <div class="gc">
+      <div class="cl">当日爻位变动表</div>
+      <div id="yaoTimeline" class="yt-container"></div>
+    </div>
+  </div>
+  
+  <div class="cg">
+    <div class="gh"><span class="ml" id="cml"></span><div><button class="nb" id="pm">上个月</button><button class="nb" id="nm">下个月</button></div></div>
+    <div class="wr"><span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span></div>
+    <div class="dg" id="dg"></div>
+    <div style="text-align:center;padding:16px 0 4px;color:#8a6e4e;font-size:.85rem;letter-spacing:2px;border-top:1px solid #dac9b4;margin-top:8px">© 合一研习社</div>
+    <div style="text-align:center;padding:2px 0 12px;color:#8a6e4e;font-size:.85rem;letter-spacing:1px">公众号：合一研习社</div>
+  </div>
+</div>
+<script>
+var TG={乾:[1,1,1],兑:[1,1,0],离:[1,0,1],震:[1,0,0],巽:[0,1,1],坎:[0,1,0],艮:[0,0,1],坤:[0,0,0]};
+var HN=['姤','大过','鼎','恒','巽','井','蛊','升','讼','困','未济','解','涣','蒙','师','遁','咸','旅','小过','渐','蹇','艮','谦','否','萃','晋','豫','观','比','剥','复','颐','屯','益','震','噬嗑','随','无妄','明夷','贲','既济','家人','丰','革','同人','临','损','节','中孚','归妹','睽','兑','履','泰','大畜','需','小畜','大壮','大有','夬'];
+var YN=['初爻','二爻','三爻','四爻','五爻','上爻'];
+var HM=[['巽','乾'],['巽','兑'],['巽','离'],['巽','震'],['巽','巽'],['巽','坎'],['巽','艮'],['巽','坤'],['坎','乾'],['坎','兑'],['坎','离'],['坎','震'],['坎','巽'],['坎','艮'],['坎','坤'],['艮','乾'],['艮','兑'],['艮','离'],['艮','震'],['艮','巽'],['艮','坎'],['艮','艮'],['艮','坤'],['坤','乾'],['坤','兑'],['坤','离'],['坤','震'],['坤','巽'],['坤','坎'],['坤','艮'],['震','坤'],['震','艮'],['震','坎'],['震','巽'],['震','震'],['震','离'],['震','兑'],['震','乾'],['离','坤'],['离','艮'],['离','坎'],['离','巽'],['离','震'],['离','兑'],['离','乾'],['兑','坤'],['兑','艮'],['兑','坎'],['兑','巽'],['兑','震'],['兑','离'],['兑','兑'],['兑','乾'],['乾','坤'],['乾','艮'],['乾','坎'],['乾','巽'],['乾','震'],['乾','离'],['乾','兑']];
+var HL=HM.map(function(m){return TG[m[0]].concat(TG[m[1]]);});
+var SUN=[1,1,0,0,0,1];
+function fi(p){var k=p.join('');for(var i=0;i<HL.length;i++)if(HL[i].join('')===k)return i;return -1;}
+var GSH=[0,1,2,3,4,5].map(function(l){var r=SUN.map(function(v,i){return i===l?1-v:v;});return fi(r);});
+
+var ST=[
+    {n:'冬至', d:new Date('2025-12-21T23:01:17')},
+    {n:'小寒', d:new Date('2026-01-05T19:09:00')},
+    {n:'大寒', d:new Date('2026-01-20T11:43:00')},
+    {n:'立春', d:new Date('2026-02-04T04:02:00')},
+    {n:'雨水', d:new Date('2026-02-18T23:51:46')},
+    {n:'惊蛰', d:new Date('2026-03-05T21:58:51')},
+    {n:'春分', d:new Date('2026-03-20T22:45:46')},
+    {n:'清明', d:new Date('2026-04-05T02:39:50')},
+    {n:'谷雨', d:new Date('2026-04-20T09:38:57')},
+    {n:'立夏', d:new Date('2026-05-05T19:48:34')},
+    {n:'小满', d:new Date('2026-05-21T08:36:37')},
+    {n:'芒种', d:new Date('2026-06-05T23:48:11')},
+    {n:'夏至', d:new Date('2026-06-21T16:24:22')},
+    {n:'小暑', d:new Date('2026-07-07T09:56:47')},
+    {n:'大暑', d:new Date('2026-07-23T03:12:57')},
+    {n:'立秋', d:new Date('2026-08-07T19:42:32')},
+    {n:'处暑', d:new Date('2026-08-23T10:18:38')},
+    {n:'白露', d:new Date('2026-09-07T22:41:07')},
+    {n:'秋分', d:new Date('2026-09-23T08:05:05')},
+    {n:'寒露', d:new Date('2026-10-08T14:29:09')},
+    {n:'霜降', d:new Date('2026-10-23T17:37:44')},
+    {n:'立冬', d:new Date('2026-11-07T17:51:51')},
+    {n:'小雪', d:new Date('2026-11-22T15:23:05')},
+    {n:'大雪', d:new Date('2026-12-07T10:52:20')},
+    {n:'冬至', d:new Date('2026-12-22T04:50:03')},
+    {n:'小寒', d:new Date('2027-01-05T22:09:50')},
+    {n:'大寒', d:new Date('2027-01-20T15:29:41')},
+    {n:'立春', d:new Date('2027-02-04T09:46:00')}
+];
+
+var GN=[['冬至','小寒','大寒','立春'],['雨水','惊蛰','春分','清明'],['谷雨','立夏','小满','芒种'],['夏至','小暑','大暑','立秋'],['处暑','白露','秋分','寒露'],['霜降','立冬','小雪','大雪']];
+function tI(d){var ts=d.getTime();for(var i=ST.length-1;i>=0;i--)if(ts>=ST[i].d.getTime())return i;return 0;}
+function cG(i,p){var n=ST[i].n,g=-1;for(var j=0;j<GN.length;j++){if(GN[j].indexOf(n)>=0){g=j;break;}}if(g<0)g=Math.min(5,Math.floor(i/4));var s=GSH[g],tg=GN[g].indexOf(n),o=(s+tg*15)%60,ty=Math.floor(p*90);return{hi:(o+Math.floor(ty/6))%60,yn:ty%6,yname:YN[ty%6],tn:n,ys:HL[(o+Math.floor(ty/6))%60][ty%6]};}
+function gG(d){var ts=d.getTime(),i=tI(d);if(i>=ST.length-1){i=ST.length-2;return cG(i,1);}var s=ST[i].d.getTime(),e=ST[i+1].d.getTime();if(e<=s)return cG(i,0);return cG(i,Math.min(1,Math.max(0,(ts-s)/(e-s))));}
+function fD(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function fDC(d){return d.getFullYear()+'年'+(d.getMonth()+1)+'月'+d.getDate()+'日';}
+function fT(d){return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')+':'+String(d.getSeconds()).padStart(2,'0');}
+
+var app={selDate:new Date(),vy:2026,vm:0};
+
+// 【新增核心功能】：获取指定日期（0点~24点）内发生过的全部独立卦象数组
+function getDayHexagrams(d) {
+    var dayStart = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0).getTime();
+    var dayEnd = dayStart + 24 * 60 * 60 * 1000;
+    var hexList = [];
+    
+    for (var i = 0; i < ST.length - 1; i++) {
+        var sTime = ST[i].d.getTime();
+        var eTime = ST[i+1].d.getTime();
+        
+        if (eTime > dayStart && sTime < dayEnd) {
+            var duration = eTime - sTime;
+            var yaoDuration = duration / 90; 
+            
+            for (var j = 0; j < 90; j++) {
+                var yStart = sTime + j * yaoDuration;
+                var yEnd = sTime + (j + 1) * yaoDuration;
+                
+                if (yEnd > dayStart && yStart < dayEnd) {
+                    var gu = cG(i, j / 90);
+                    if(gu.hi >= 0) {
+                        var hx = HN[gu.hi] + '卦';
+                        if(hexList.indexOf(hx) === -1) {
+                            hexList.push(hx);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return hexList.length > 0 ? hexList : ['—'];
+}
+
+function uYT(d) {
+    var container = document.getElementById('yaoTimeline');
+    var dayStart = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0).getTime();
+    var dayEnd = dayStart + 24 * 60 * 60 * 1000;
+    var now = new Date().getTime();
+    var h = '';
+    
+    for (var i = 0; i < ST.length - 1; i++) {
+        var sTime = ST[i].d.getTime();
+        var eTime = ST[i+1].d.getTime();
+        
+        if (eTime > dayStart && sTime < dayEnd) {
+            var duration = eTime - sTime;
+            var yaoDuration = duration / 90; 
+            
+            var animIdx = 0;
+            for (var j = 0; j < 90; j++) {
+                var yStart = sTime + j * yaoDuration;
+                var yEnd = sTime + (j + 1) * yaoDuration;
+                
+                if (yEnd > dayStart && yStart < dayEnd) {
+                    var gu = cG(i, j / 90);
+                    var ysDate = new Date(yStart);
+                    
+                    var timeStr = (ysDate.getTime() < dayStart ? '昨日 ' : '') + 
+                                  String(ysDate.getHours()).padStart(2,'0') + ':' + 
+                                  String(ysDate.getMinutes()).padStart(2,'0');
+                    
+                    var cls = 'yt-item';
+                    if (now >= yStart && now < yEnd) cls += ' yt-active';
+                    
+                    h += '<div class="' + cls + '" style="animation:yaoSlideIn 0.35s ease-out ' + (animIdx * 0.04).toFixed(2) + 's both"><span class="yt-time">' + timeStr + ' 起</span><span class="yt-name">' + HN[gu.hi] + '卦 · ' + gu.yname + '</span></div>';
+                    animIdx++;
+                }
+            }
+        }
+    }
+    container.innerHTML = h || '<div style="color:#8a6e4e;font-size:0.9rem;padding:8px;">本日无卦象数据（超出范围）</div>';
+}
+
+function uL(){
+    var n=new Date(),gu=gG(n);
+    
+    // 1. 更新顶部小字横幅（永远跟随真实时间）
+    document.getElementById('lt').textContent=fT(n);
+    document.getElementById('lg').textContent=gu.hi>=0?HN[gu.hi]+'卦':'—';
+    document.getElementById('ly').textContent=gu.yname;
+    
+    // 2. 更新下方大卡片内容
+    if(app.selDate && fD(app.selDate)===fD(n)) {
+        // 由于大卡片现在已经通过 uS 铺好了今日所有的全天大字卦象，我们只需要让大卡片的时间继续走秒即可
+        document.getElementById('sgDate').textContent=fDC(n)+' '+fT(n);
+        
+        // 每逢整分钟刷新一次下方时间列表，以更新高亮状态
+        if(n.getSeconds() === 0) uYT(app.selDate);
+    }
+}
+
+function uS(d){
+    var n=new Date(), isT=fD(d)===fD(n);
+    var targetTime = new Date(d);
+    targetTime.setHours(0,0,0,0); // 用于获取“整天”数据的基准时间
+    
+    // 【更新卡片卦名】：获取当天所有的卦名并渲染出来
+    var hexArr = getDayHexagrams(targetTime);
+    var html = '';
+    for(var k=0; k<hexArr.length; k++){
+        html += '<span class="gb">' + hexArr[k] + '</span>';
+    }
+    document.getElementById('sgNameCt').innerHTML = html;
+    
+    document.getElementById('cardLabel').textContent=isT?'今日卦象':'卦象 '+fDC(targetTime);
+    document.getElementById('sgDate').textContent=isT?fDC(n)+' '+fT(n):fDC(targetTime);
+    document.getElementById('tll').textContent=fDC(targetTime);
+    document.getElementById('dp').value=fD(targetTime);
+    
+    app.selDate=targetTime;
+    uYT(targetTime);
+}
+
+function rC(y,m){var fd=new Date(y,m,1),ld=new Date(y,m+1,0),dim=ld.getDate(),sw=fd.getDay();var mn=['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];document.getElementById('cml').innerHTML=mn[m]+' '+y;var pmd=new Date(y,m,0).getDate(),tc=Math.ceil((sw+dim)/7)*7;var td=new Date(),tds=fD(td),h='';for(var i=0;i<tc;i++){var dn,om=false,cd;if(i<sw){dn=pmd-sw+i+1;om=true;cd=new Date(y,m-1,dn);}else if(i>=sw+dim){dn=i-sw-dim+1;om=true;cd=new Date(y,m+1,dn);}else{dn=i-sw+1;cd=new Date(y,m,dn);}var ds=fD(cd),it=ds===tds,is=ds===fD(app.selDate);var tn='',ist=false;if(!om){for(var ti=0;ti<ST.length;ti++){var t2=ST[ti].d;if(t2.getFullYear()===y&&t2.getMonth()===m&&t2.getDate()===dn){tn=ST[ti].n;ist=true;break;}}}var cls='dc';if(om)cls+=' om';if(it)cls+=' td';if(is)cls+=' sl';var tb='';if(ist&&!om)tb='<span class="tb">'+tn+'</span>';h+='<div class="'+cls+'" data-d="'+ds+'"><div class="dn">'+dn+'</div>'+tb+'</div>';}document.getElementById('dg').innerHTML=h;document.querySelectorAll('.dc[data-d]').forEach(function(el){el.addEventListener('click',function(){var ds2=this.dataset.d;if(!ds2)return;var p=ds2.split('-'),d2=new Date(parseInt(p[0]),parseInt(p[1])-1,parseInt(p[2]));app.selDate=d2;app.vy=d2.getFullYear();app.vm=d2.getMonth();uS(d2);rC(app.vy,app.vm);});});}
+
+function cM(d){app.vm+=d;if(app.vm<0){app.vm=11;app.vy--;}else if(app.vm>11){app.vm=0;app.vy++;}rC(app.vy,app.vm);}
+
+function init(){
+    var n=new Date();
+    app.selDate=n;
+    app.vy=n.getFullYear();
+    app.vm=n.getMonth();
+    uS(n);
+    uL();
+    rC(app.vy,app.vm);
+    setInterval(uL,1000);
+    
+    document.getElementById('dp').addEventListener('change',function(){var v=this.value;if(!v)return;var p=v.split('-'),d=new Date(parseInt(p[0]),parseInt(p[1])-1,parseInt(p[2]));app.selDate=d;app.vy=d.getFullYear();app.vm=d.getMonth();uS(d);rC(app.vy,app.vm);});
+    document.getElementById('bpd').addEventListener('click',function(){var d=new Date(app.selDate);d.setDate(d.getDate()-1);app.selDate=d;app.vy=d.getFullYear();app.vm=d.getMonth();uS(d);rC(app.vy,app.vm);});
+    document.getElementById('bnd').addEventListener('click',function(){var d=new Date(app.selDate);d.setDate(d.getDate()+1);app.selDate=d;app.vy=d.getFullYear();app.vm=d.getMonth();uS(d);rC(app.vy,app.vm);});
+    document.getElementById('btnToday').addEventListener('click',function(){var n=new Date(),d=new Date(n.getFullYear(),n.getMonth(),n.getDate());app.selDate=d;app.vy=d.getFullYear();app.vm=d.getMonth();uS(d);rC(app.vy,app.vm);});
+    document.getElementById('pm').addEventListener('click',function(){cM(-1);});
+    document.getElementById('nm').addEventListener('click',function(){cM(1);});
+    document.addEventListener('keydown',function(e){if(e.key==='ArrowLeft')cM(-1);else if(e.key==='ArrowRight')cM(1);});
+}
+document.addEventListener('DOMContentLoaded',init);
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
