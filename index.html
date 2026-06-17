@@ -6,25 +6,26 @@
 <title>2026 卦象日历</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:"Songti SC","Noto Serif SC",serif;background:#15100d;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:24px;
-  color:#3d2a1a;background-image:linear-gradient(135deg,rgba(37,90,64,0.18)0%,transparent 38%),radial-gradient(ellipse at 18% 35%,rgba(187,139,78,0.18)0%,transparent 62%),radial-gradient(ellipse at 82% 55%,rgba(125,45,34,0.15)0%,transparent 58%),repeating-linear-gradient(90deg,rgba(255,255,255,0.025)0 1px,transparent 1px 26px)}
-.wrap{position:relative;isolation:isolate;overflow:hidden;max-width:1200px;width:100%;background:linear-gradient(180deg,#fbf4ea 0%,#f5eadc 54%,#efe0cd 100%);border-radius:48px 48px 32px 32px;
-  box-shadow:0 24px 70px rgba(0,0,0,0.72),inset 0 0 86px rgba(170,123,72,0.16),inset 0 1px 0 rgba(255,255,255,0.78),0 0 0 1px #e2d2bd,0 0 0 6px #b8a084,0 0 0 9px #6f5e4f;padding:34px 38px 42px}
-.wrap::before{content:'';position:absolute;inset:17px;border:1px solid rgba(138,122,102,0.34);border-radius:34px 34px 22px 22px;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.42);pointer-events:none;z-index:0}
-.wrap::after{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,rgba(90,64,48,0.026)0 1px,transparent 1px 7px),repeating-linear-gradient(90deg,rgba(90,64,48,0.018)0 1px,transparent 1px 9px),linear-gradient(120deg,transparent 0 62%,rgba(37,90,64,0.055)62% 100%);opacity:.72;pointer-events:none;z-index:0}
+body{font-family:"Songti SC","Noto Serif SC",serif;background:
+  radial-gradient(circle at top left,rgba(255,240,220,.18),transparent 35%),
+  radial-gradient(circle at 80% 18%,rgba(157,188,156,.14),transparent 30%),
+  linear-gradient(180deg,#16110d 0%,#120e0b 100%);
+  min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:24px;color:#3d2a1a}
+.wrap{position:relative;isolation:isolate;overflow:hidden;max-width:1200px;width:100%;
+  background:linear-gradient(180deg,rgba(255,252,247,.98) 0%,rgba(248,240,230,.96) 100%);
+  border-radius:40px;box-shadow:0 24px 72px rgba(0,0,0,0.52),0 0 0 1px rgba(214,196,173,.8),inset 0 1px 0 rgba(255,255,255,.72);
+  padding:34px 38px 40px}
+.wrap::before{content:'';position:absolute;inset:16px;border:1px solid rgba(179,159,135,0.28);border-radius:28px;pointer-events:none;z-index:0}
+.wrap::after{content:'';position:absolute;inset:auto -10% -8% auto;width:340px;height:340px;background:radial-gradient(circle,rgba(47,118,88,0.08)0%,rgba(47,118,88,0)70%);pointer-events:none;z-index:0}
 .hd,.lb,.dp,.gd,.cg{position:relative;z-index:1}
-.hd{display:flex;align-items:center;justify-content:center;border-bottom:3px double rgba(184,160,132,0.92);padding:0 0 22px;margin-bottom:28px}
+.hd{display:flex;align-items:center;justify-content:center;padding:0 0 20px;margin-bottom:24px}
 .brand-head{position:relative;display:flex;align-items:center;justify-content:center;width:100%;min-height:clamp(72px,8vw,104px);text-align:center}
-.brand-logo{position:absolute;left:0;top:50%;transform:translateY(-50%);width:clamp(76px,8vw,108px);height:clamp(76px,8vw,108px);object-fit:contain;display:block;filter:drop-shadow(0 4px 7px rgba(61,42,26,.28))}
+.brand-logo{position:absolute;left:0;top:50%;transform:translateY(-50%);width:clamp(76px,8vw,108px);height:clamp(76px,8vw,108px);object-fit:contain;display:block;filter:drop-shadow(0 8px 14px rgba(61,42,26,.2))}
 .title-block{position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;margin:0 auto}
-.title-block::before,.title-block::after{content:'';position:absolute;top:34px;width:78px;height:1px;background:linear-gradient(90deg,transparent,#a88962,#2d6b50)}
-.title-block::before{right:calc(100% + 22px);transform:scaleX(-1)}
-.title-block::after{left:calc(100% + 22px)}
 .mt{display:flex;flex-direction:column;align-items:center;text-align:center;font-size:2.68rem;font-weight:900;color:#352315;letter-spacing:8px;line-height:1.26;text-shadow:0 1px 0 rgba(255,255,255,0.78),0 7px 18px rgba(80,50,30,0.12)}
 .mt .yr{font-weight:400;font-size:1.1rem;color:#8a6e4e;letter-spacing:2px;margin-top:4px}
 .seal{display:inline-block;background:linear-gradient(180deg,#c24837 0%,#a22e25 100%);color:#fff4e6;font-size:.85rem;font-weight:700;padding:4px 13px;border-radius:28px 5px 28px 5px;letter-spacing:2px;box-shadow:inset 0 -2px 0 #722018,0 3px 10px rgba(180,60,40,0.28);border:1px solid #d46a5a;transform:rotate(-2deg)}
-.lb{overflow:hidden;background:linear-gradient(180deg,rgba(244,236,224,0.92),rgba(226,213,196,0.78));border-radius:60px;padding:11px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:26px;border:1px solid rgba(188,166,139,0.9);box-shadow:inset 0 1px 0 rgba(255,255,255,0.66),0 8px 18px rgba(80,50,30,0.07)}
-.lb::before{content:'';position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,#2f7658,#b53b2c,#2f7658,transparent);opacity:.48}
+.lb{overflow:hidden;background:linear-gradient(180deg,rgba(244,236,224,0.92),rgba(226,213,196,0.78));border-radius:28px;padding:11px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:22px;border:1px solid rgba(188,166,139,0.82);box-shadow:inset 0 1px 0 rgba(255,255,255,0.66),0 8px 18px rgba(80,50,30,0.07)}
 .lb .ll{display:flex;align-items:center;gap:8px;color:#5a4030;font-weight:600;font-size:.95rem}
 .lb .ll .dot{display:inline-block;width:10px;height:10px;background:#b53b2c;border-radius:50%;animation:pulse 1.6s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1);box-shadow:0 0 0 0 rgba(180,60,40,0.3)}50%{opacity:0.5;transform:scale(0.85);box-shadow:0 0 14px 4px rgba(180,60,40,0.12)}}
@@ -45,20 +46,17 @@ body{font-family:"Songti SC","Noto Serif SC",serif;background:#15100d;min-height
 .dp .tl{font-size:.9rem;color:#806246;margin-left:auto;background:rgba(255,250,244,0.58);padding:5px 16px;border-radius:30px;border:1px solid rgba(218,201,180,0.88);box-shadow:inset 0 1px 0 rgba(255,255,255,0.68)}
 .gd{display:grid;grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));gap:28px;margin-bottom:20px}
 
-.gc{background:linear-gradient(180deg,rgba(255,250,244,0.9),rgba(244,235,224,0.78));border-radius:24px;padding:24px 28px;border:1px solid rgba(218,201,180,0.94);box-shadow:0 9px 24px rgba(80,50,30,0.09),inset 0 1px 0 rgba(255,255,255,0.72);position:relative;overflow:hidden;transition:transform 0.3s ease,box-shadow 0.3s ease}
+.gc{background:linear-gradient(180deg,rgba(255,250,244,0.9),rgba(244,235,224,0.78));border-radius:24px;padding:24px 28px;border:1px solid rgba(218,201,180,0.86);box-shadow:0 9px 24px rgba(80,50,30,0.09),inset 0 1px 0 rgba(255,255,255,0.72);position:relative;overflow:hidden;transition:transform 0.3s ease,box-shadow 0.3s ease}
 .gc:hover{transform:translateY(-3px);box-shadow:0 15px 34px rgba(80,50,30,0.14),inset 0 1px 0 rgba(255,255,255,0.72)}
-.gc::before{content:'';position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,#2f7658,#b53b2c,#b8a084);opacity:.72}
-.gc::after{content:'卦';position:absolute;right:20px;bottom:-24px;font-size:8rem;font-weight:900;color:rgba(47,118,88,0.045);line-height:1;pointer-events:none}
 .gc .cl{font-size:.9rem;letter-spacing:4px;color:#8e7558;margin-bottom:8px;font-weight:700;display:flex;align-items:center;gap:8px}
-.gc .cl::before{content:'';width:18px;height:2px;background:#b53b2c;border-radius:2px}
-.gc .ct{font-size:1.6rem;font-weight:700;color:#3d2a1a;margin-bottom:6px; display:flex; flex-wrap:wrap; gap:10px;}
-.gc .ct .gb{font-size:2.8rem;color:#a72f24;font-weight:900;letter-spacing:4px;background:linear-gradient(180deg,rgba(180,60,40,0.09),rgba(255,250,244,0.65));padding:2px 18px;border-radius:14px;border-left:4px solid #b53b2c;border-bottom:1px solid rgba(180,60,40,0.18);display:inline-block;margin:0;box-shadow:inset 0 1px 0 rgba(255,255,255,0.75),0 5px 12px rgba(80,50,30,0.08)}
+.gc .cl::before{content:'';width:12px;height:12px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#d26c5c,#b53b2c);box-shadow:0 0 0 4px rgba(181,59,44,0.08)}
+.gc .ct{font-size:1.6rem;font-weight:700;color:#3d2a1a;margin-bottom:6px; display:flex; flex-wrap:wrap; gap:10px; line-height:1.25;}
+.gc .ct .gb{font-size:2.8rem;color:#a72f24;font-weight:900;letter-spacing:4px;background:linear-gradient(180deg,rgba(180,60,40,0.09),rgba(255,250,244,0.65));padding:2px 18px;border-radius:14px;border:1px solid rgba(180,60,40,0.12);display:inline-block;margin:0;box-shadow:inset 0 1px 0 rgba(255,255,255,0.75),0 5px 12px rgba(80,50,30,0.08)}
 .gc .cs{color:#8a6e4e;font-size:.9rem;margin-top:4px}
 .gc .cs .di{opacity:.7}
 .cg{margin-top:8px;background:linear-gradient(180deg,rgba(255,250,244,0.88),rgba(242,231,217,0.76));border-radius:24px;padding:22px;border:1px solid rgba(218,201,180,0.96);box-shadow:0 10px 26px rgba(80,50,30,0.08),inset 0 1px 0 rgba(255,255,255,0.7);overflow:hidden}
 .gh{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px}
 .gh .ml{font-size:1.45rem;font-weight:800;color:#352315;letter-spacing:4px;position:relative;padding-left:14px}
-.gh .ml::before{content:'';position:absolute;left:0;top:50%;width:4px;height:22px;background:#2f7658;border-radius:4px;transform:translateY(-50%)}
 .gh .ml small{font-weight:400;font-size:.9rem;color:#8a6e4e}
 .gh .nb{font-family:serif;background:linear-gradient(180deg,#efe6da,#dccab4);border:1px solid #c9b79b;padding:5px 16px;border-radius:30px;font-size:1rem;color:#5a4030;cursor:pointer;transition:.2s;box-shadow:inset 0 1px 0 rgba(255,255,255,0.62)}
 .gh .nb:hover{background:linear-gradient(180deg,#f4ebe1,#d6c2a9);transform:translateY(-1px)}
@@ -67,7 +65,6 @@ body{font-family:"Songti SC","Noto Serif SC",serif;background:#15100d;min-height
 .wr span:first-child,.wr span:last-child{color:#b53b2c}
 .dg{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
 .dc{position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(250,246,240,0.72),rgba(238,225,208,0.54));border-radius:12px;padding:7px;text-align:center;cursor:pointer;border:1px solid rgba(218,201,180,0.28);min-height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:all 0.25s ease;box-shadow:inset 0 1px 0 rgba(255,255,255,0.48)}
-.dc::before{content:'';position:absolute;inset:1px;border-radius:10px;border:1px solid rgba(255,255,255,0.36);pointer-events:none}
 .dc:hover{background:linear-gradient(180deg,#f2e7da,#e4d4be);border-color:#c9b79b;transform:translateY(-1px);box-shadow:0 6px 12px rgba(80,50,30,0.08),inset 0 1px 0 rgba(255,255,255,0.62)}
 .dc.sl{background:linear-gradient(180deg,#e4d0b7,#cbb08f);border-color:#b53b2c;box-shadow:0 0 0 2px rgba(181,59,44,0.1),inset 0 1px 0 rgba(255,255,255,0.45)}
 .dc.td{border-color:#b53b2c;background:linear-gradient(180deg,rgba(180,60,40,0.12),rgba(250,246,240,0.7));animation:breathe 3s ease-in-out infinite}
@@ -81,26 +78,21 @@ body{font-family:"Songti SC","Noto Serif SC",serif;background:#15100d;min-height
 .yt-container::-webkit-scrollbar { width:4px; }
 .yt-container::-webkit-scrollbar-thumb { background:#dac9b4; border-radius:4px; }
 .yt-item { position:relative;background:linear-gradient(180deg,rgba(239,226,209,0.66),rgba(250,246,240,0.5)); padding:8px 10px 8px 14px; border-radius:12px; border:1px solid #dac9b4; font-size:.85rem; display:flex; flex-direction:column; gap:4px; transition:all 0.3s; box-shadow:inset 0 1px 0 rgba(255,255,255,0.56); }
-.yt-item::before{content:'';position:absolute;left:6px;top:12px;width:4px;height:calc(100% - 24px);border-radius:4px;background:#2f7658;opacity:.6}
 .yt-time { color:#b53b2c; font-weight:700; }
 .yt-name { color:#3d2a1a; font-weight:600; }
 .yt-active { background:linear-gradient(180deg,#b94131,#8d281f); border-color:#8a2a1e; transform:scale(1.02); box-shadow:0 4px 14px rgba(180,60,40,0.24); animation:glowActive 2s ease-in-out infinite; }
-.yt-active::before{background:#f7efe6;opacity:.9}
 .yt-active .yt-time, .yt-active .yt-name { color:#f7efe6; }
 
-.ft{display:flex;align-items:center;justify-content:center;gap:10px;text-align:center;padding:16px 0 8px;color:#806246;font-size:.85rem;letter-spacing:1.5px;border-top:1px solid rgba(218,201,180,0.92);margin-top:10px;flex-wrap:wrap}
-.ft-line{display:inline-block;width:54px;height:1px;background:linear-gradient(90deg,transparent,#b8a084)}
-.ft-line:last-child{transform:scaleX(-1)}
+.ft{display:flex;align-items:center;justify-content:center;gap:10px;text-align:center;padding:16px 0 8px;color:#806246;font-size:.85rem;letter-spacing:1.5px;margin-top:10px;flex-wrap:wrap}
 .ft-dot{width:5px;height:5px;border-radius:50%;background:#b53b2c;box-shadow:0 0 0 4px rgba(181,59,44,0.08)}
-.bagua-bg{position:absolute;inset:0;z-index:0;pointer-events:none;display:flex;align-items:center;justify-content:center;color:#332518;opacity:0.14;filter:drop-shadow(0 12px 22px rgba(80,50,30,0.12))}
+.bagua-bg{position:absolute;inset:0;z-index:0;pointer-events:none;display:flex;align-items:center;justify-content:center;color:#332518;opacity:0.08;filter:drop-shadow(0 12px 22px rgba(80,50,30,0.12))}
 /* 平板及以下 */
 @media(max-width:860px) {
   body { padding:16px; }
-  .wrap { padding:20px 16px; border-radius:32px; }
+  .wrap { padding:20px 16px; border-radius:28px; }
   .brand-head { min-height:76px; }
   .brand-logo { width:76px; height:76px; }
   .mt { font-size:2rem; letter-spacing:4px; }
-  .title-block::before,.title-block::after { width:46px; }
   .yt-container { max-height:300px; }
   .bagua-bg svg { width:90%; height:90%; }
 }
@@ -113,7 +105,6 @@ body{font-family:"Songti SC","Noto Serif SC",serif;background:#15100d;min-height
   .hd { padding-bottom:12px; margin-bottom:16px; }
   .brand-head { min-height:52px; }
   .brand-logo { width:52px; height:52px; }
-  .title-block::before,.title-block::after { display:none; }
   .mt { font-size:1.5rem; letter-spacing:2px; }
   .mt .yr { font-size:.85rem; margin-top:2px; }
   .seal { font-size:.72rem; padding:3px 10px; }
@@ -145,7 +136,6 @@ body{font-family:"Songti SC","Noto Serif SC",serif;background:#15100d;min-height
   .wr { font-size:.7rem; }
   .wr span { padding:5px 0; border-radius:8px; }
   .dc { padding:2px; min-height:40px; border-radius:8px; }
-  .dc::before { border-radius:7px; }
   .dc.td::after { width:13px; height:13px; line-height:13px; font-size:.4rem; top:3px; right:3px; }
   .dc .dn { font-size:.8rem; }
   .tb { font-size:.4rem; padding:0 4px; line-height:1.4; }
@@ -155,7 +145,6 @@ body{font-family:"Songti SC","Noto Serif SC",serif;background:#15100d;min-height
   
   .bagua-bg svg { width:98%; height:98%; max-width:320px; }
   .ft { gap:7px; font-size:.78rem; padding:12px 0 6px; }
-  .ft-line { width:30px; }
 }
 /* === Animations === */
 @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
@@ -285,7 +274,7 @@ body{font-family:"Songti SC","Noto Serif SC",serif;background:#15100d;min-height
     <div class="gh"><span class="ml" id="cml"></span><div><button class="nb" id="pm">上个月</button><button class="nb" id="nm">下个月</button></div></div>
     <div class="wr"><span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span></div>
     <div class="dg" id="dg"></div>
-    <div class="ft"><span class="ft-line"></span><span>© 合一研习社</span><span class="ft-dot"></span><span>公众号：合一研习社</span><span class="ft-line"></span></div>
+    <div class="ft"><span>© 合一研习社</span><span class="ft-dot"></span><span>公众号：合一研习社</span></div>
   </div>
 </div>
 <script>
