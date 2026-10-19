@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>全部作品｜SevenHours 云南旅拍作品集</title>
+<meta name="description" content="SevenHours 云南旅拍作品集：蓝调、杂志风、古风、夜景、麦田、海景、婚礼等 30+ 种人像风格。">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230a0d14'/><text x='16' y='23' font-size='18' font-family='Georgia' fill='%237ea6ff' text-anchor='middle'>7</text></svg>">
+<script>document.documentElement.className+=' js';</script>
+</head>
+<body>
+
+<header class="nav scrolled" id="nav">
+  <a class="brand" href="index.html" aria-label="SevenHours · 旅拍陪玩">
+    <img class="brand-logo" src="assets/img/logo/sevenhours.png" alt="SevenHours">
+    <span class="brand-sub">Yunnan · Photo &amp; Tour</span>
+  </a>
+  <nav class="nav-links" id="navLinks">
+    <a href="index.html">首页</a>
+    <a href="travel.html#about">关于</a>
+    <a href="travel.html#service">服务</a>
+    <a href="travel.html#journey">精选作品</a>
+    <a href="gallery.html">全部作品</a>
+    <a href="travel.html#car">座驾</a>
+    <a href="travel.html#pricing">报价</a>
+    <a href="wellness.html">理疗</a>
+    <a href="gua.html">卦象日历</a>
+    <a href="travel.html#contact" class="nav-cta">预约咨询</a>
+  </nav>
+  <button class="burger" id="burger" aria-label="菜单"><i></i><i></i></button>
+</header>
+
+<section class="phead">
+  <div class="wrap">
+    <div class="eyebrow">PORTFOLIO</div>
+    <h1 data-split>全部作品</h1>
+    <p>按风格分类浏览。点击任意一张可以放大查看，手机端可以左右滑动切换。</p>
+    <div class="gcount" id="gcount"></div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="chips" id="chips"></div>
+    <div class="masonry" id="grid"></div>
+    <div id="empty" style="display:none;text-align:center;padding:80px 0;color:var(--muted-2)">该分类暂无作品</div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-in">
+    <span>© <span id="year"></span> SevenHours · <span id="footCn"></span></span>
+    <span id="footNote"></span>
+  </div>
+</footer>
+
+<div class="lb" id="lb">
+  <button class="lb-close" id="lbClose" aria-label="关闭"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <button class="lb-nav lb-prev" id="lbPrev" aria-label="上一张"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></button>
+  <img id="lbImg" alt="">
+  <button class="lb-nav lb-next" id="lbNext" aria-label="下一张"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+  <div class="lb-cap" id="lbCap"></div>
+</div>
+
+<script src="assets/data/site.js"></script>
+<script src="assets/data/works.js"></script>
+<script src="assets/js/gallery.js"></script>
+<script src="assets/js/motion.js"></script>
+</body>
+</html>
