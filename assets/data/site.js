@@ -25,7 +25,7 @@ window.SITE = {
     cards: [
       {
         href: "travel.html",
-        img: "assets/img/hero/1、cloud-mountain.webp",
+        img: "assets/img/hero/1-cloud-mountain.webp",
         tag: "01 / TRAVEL & PHOTO",
         title: "旅拍陪玩",
         en: "TRAVEL · PHOTO · GUIDE",
